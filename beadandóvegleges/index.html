@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>Bef Calculator</title>
+		<script src="app.js"></script>
+	</head>
+	<script>
+		function setCookie(cname,cvalue,exdays) {
+		  const d = new Date();
+		  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+		  let expires = "expires=" + d.toUTCString();
+		  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+		}
+
+		function getCookie(cname) {
+		  let name = cname + "=";
+		  let decodedCookie = decodeURIComponent(document.cookie);
+		  let ca = decodedCookie.split(';');
+		  for(let i = 0; i < ca.length; i++) {
+			let c = ca[i];
+			while (c.charAt(0) == ' ') {
+			  c = c.substring(1);
+			}
+			if (c.indexOf(name) == 0) {
+			  return c.substring(name.length, c.length);
+			}
+		  }
+		  return "";
+		}
+
+		function checkCookie() {
+		  let user = getCookie("username");
+		  if (user != "") {
+			alert("Üdv újra " + user);
+		  } else {
+			 user = prompt("Kérem, adja meg a nevét a folytatáshoz:","");
+			 if (user != "" && user != null) {
+			   setCookie("username", user, 30);
+			 }
+		  }
+		}
+		</script>
+
+
+	<style media="screen">
+		body{
+			margin: 0;
+			padding: 0;
+			text-align: center;
+			font-family: sans-serif;
+			background-image: linear-gradient(120deg,#ff6b6b, #5f27cd);
+			min-height: 50vh;
+		}
+		div{
+			width: 500px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			background-color: #fff;
+			transform: translate(-50%, -50%);
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 1px 1px 20px #ee5253;
+		}
+		h2{
+			font-size: 30px;
+			font-weight: 600;
+		}
+		.text{
+			text-align: left;
+			margin-left: 150px;
+		}
+		#év, #pénz{
+			color: #222f3e;
+			text-align: left;
+			font-size: 20px;
+			font-weight: 200;
+			outline: none;
+			border: none;
+			background: none;
+			border-bottom: 1px solid #341f97;
+			width: 200px;
+		}
+			#év:focus, #pénz:focus{
+				border-bottom: 2px solid #341f97;
+				width: 300px;
+				transition: 0.5s;
+			}
+			#result{
+				color: #341f97;
+			}
+			#btn{
+				font-family: inherit;
+				margin-top: 10px;
+				border: none;
+				color: #fff;
+				background-image: linear-gradient(120deg,#ff6b6b, #5f27cd);
+				width: 150px;
+				padding: 10px;
+				border-radius: 30px;
+				outline: none;
+				cursor: pointer;
+			}
+			#btn:hover{
+				box-shadow: 1px 1px 10px #341f97;
+			}
+			#info{
+				font-size: 12px;
+				font-family: inherit;
+			}
+	</style>
+	<script type="text/javascript">
+		function bef() {
+			var kamatlab = 5;
+			var pénz=document.getElementById('pénz').value;
+			var év=document.getElementById('év').value;
+			var költség = pénz/2;
+			var költség2 = költség/2 
+			if(év >= 10){
+				var eredmény=Math.pow((100+kamatlab)/100,év)*pénz ;
+			}
+			else if(pénz <= 1500000 && pénz >= 720000 && év >= 10){
+				var eredmény=Math.pow((100+kamatlab)/100,év)*pénz - költség2;
+
+
+			} 
+			else if(pénz < 1500000 && pénz >= 720000 && év < 10){
+				var eredmény=Math.pow((100+kamatlab)/100,év)*pénz - költség;
+
+			}
+
+			else{
+				var eredmény=Math.pow((100+kamatlab)/100,év)*pénz - költség;
+
+			}
+			
+			var eredmenyo=(eredmény.toFixed(2));
+
+			document.getElementById("result").innerHTML="a te befed " + eredmenyo +"-ft";
+		}
+	</script>
+
+	<body onload="checkCookie()">
+		<div>
+			<h2>befektetes kalkulator</h2>
+			<p class="text">mennyit szeretnél befektetni</p>
+			<input type="text" id="pénz">
+			<p class="text">hány évre</p>
+			<input type="text" id="év">
+			<p id="result"></p>
+			<button id="btn" onClick="bef()">számolj</button>
+			<p id="info">az összeget [huf]-ban</p>
+
+			<h3>Szeretnél tájékozódni a legfrissebb befektetési hírekről? Kattints <button type="button" onclick="myFunction()" class="button">ide!</button></h3> 
+	<script>
+		function myFunction() {
+		  window.location.href = "https://pro.benzinga.com/";
+		}
+	  </script>
+
+		</div>
+	</body>
+	<style>
+		.button {
+		  border-width: 10;
+		  border-color: hsl(355, 56%, 46%);
+		  background-color: #ffffff;
+		  color: rgb(0, 0, 0);
+		  padding: 5px 10px;
+		  font-size: 16px;
+		  cursor: pointer;
+		  text-align: center;
+		  position: absolute;
+		}
+	  </style>
+</html>
