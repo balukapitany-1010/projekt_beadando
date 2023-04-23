@@ -42,6 +42,73 @@
 		}
 		</script>
 
+	<style>
+        #container{
+            margin: auto;
+            border: 5px solid lightblue;
+            font-size: 30px;
+            padding: 10px;
+            text-align: center;
+            height: 260px;
+            width: 600px;
+            background-color: #0e2431;
+        }
+        p{
+            color: white;
+        }
+        #userInput{
+            width: 170px;
+            height: 23px;
+        }
+        #outputText{
+            color: red;
+        }
+   	 </style>
+	
+	
+	<div id="container">
+        	<p>Gondoltam egy számra 1 és 100 között</p>
+        	<p id="outputText">Írja a tippelt számot</p>
+       	 	<input id="userInput">
+        	<button id="enterGomb">Enter</button>
+        	<button id="ujraGomb">Új játék</button>
+    	</div>
+	
+	<script>
+        var enterGomb=document.getElementById('enterGomb');
+        var ujraGomb=document.getElementById('ujraGomb');
+        var output = document.getElementById('outputText');
+
+        var randomNumber = Math.ceil(Math.random()*100);
+
+        function checkNumber(){
+            var input=document.getElementById('userInput').value;
+            if(input == randomNumber){
+                output.innerHTML="Jól tippeltél"+ ", "+ " a szám a következő volt: "+ randomNumber;
+                output.style.color="green";
+            }
+            else if(input>randomNumber && input <100){
+                output.innerHTML="A tippelt szám túl nagy";
+            }
+            else if(input<randomNumber && input >1){
+                output.innerHTML="A tippelt szám túl alacsony";
+            }
+            else if(input<1){
+                output.innerHTML="A számnak 1 és 100 között kell lennie."
+            }
+            else if(isNaN(input)){
+                output.innerHTML="Ez nem egy szám"
+            }
+            else{
+                output.innerHTML="1 és 100 között kell lennie"
+            }
+        }
+
+        enterGomb.addEventListener('click', checkNumber);
+        ujraGomb.addEventListener('click', function(){
+            location.reload();
+        })
+    </script>
 
 	<style media="screen">
 		body{
